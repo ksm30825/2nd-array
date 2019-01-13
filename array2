@@ -1,0 +1,192 @@
+package com.kh.silsub6.model;
+
+import java.util.Random;
+import java.util.Scanner;
+
+public class Sample {
+	/*[문제 1]
+			 - 메소드명 : public void munjae1()
+			 - 구현내용 : 
+				1. 4행4열 2차원배열 선언 및 생성
+				2. 0행0열부터 2행2열까지 1부터 100사이의 임의의 정수값 기록해 넣음
+				3. 아래의 내용처럼 처리함
+					0열	1열	2열	3열	
+				0행	값	값	값 	0행 값들의 합계
+				1행	값	값	값	1행 값들의 합계
+				2행	값	값	값	2행 값들의 합계
+				3행	0열합계	1열합계	2열합계	가로+세로합계*/
+	public void munjae1() {
+		/*int[][] arr = new int[4][4];
+		for(int i=0;i<arr.length-1;i++) {
+			for(int j=0;j<arr[i].length-1;j++) {
+					arr[i][j]=new Random().nextInt(10)+1;					
+			}
+		}
+		//출력을 여러번 했는데 배열이 여러개 안나오고 하나에 합쳐져서 나오는 이유는??????
+		for(int i=0;i<arr.length-1;i++) {
+			for(int j=0;j<arr[i].length;j++) {				//j=1
+				arr[0][3]=arr[0][0]+arr[0][1]+arr[0][2];	//arr[i][3]+=arr[i][j-1];
+				arr[1][3]=arr[1][0]+arr[1][1]+arr[1][2];
+				arr[2][3]=arr[2][0]+arr[2][1]+arr[2][2];
+				System.out.print(arr[i][j]+" \t");
+			}
+			System.out.println();
+		}
+		
+		for(int i=arr.length-1;i<arr.length;i++) {
+			for(int j=0;j<arr[i].length;j++) {	
+				if(j!=3) {
+					arr[3][0]=arr[0][0]+arr[1][0]+arr[2][0];
+					arr[3][1]=arr[0][1]+arr[1][1]+arr[2][1];
+					arr[3][2]=arr[0][2]+arr[1][2]+arr[2][2];
+					System.out.print(arr[i][j]+" \t");
+				}else {
+					arr[3][3]=arr[0][3]+arr[1][3]+arr[2][3]+arr[3][0]+arr[3][1]+arr[3][2];
+					System.out.print(arr[i][j]+" \t");
+				}
+			}
+		}	*/
+		/*int[][] arr = new int[4][4];
+		for(int i=0;i<arr.length-1;i++) {
+			for(int j=0;j<arr[i].length-1;j++) {
+					arr[i][j]=new Random().nextInt(10)+1;	
+					arr[i][3]+=arr[i][j];
+			}
+			System.out.println();
+		}
+		for(int i=0;i<arr.length-1;i++) {
+			for(int j=0;j<arr[i].length-1;j++) {
+					arr[3][i]+=arr[j][i];
+					
+			}
+			System.out.println();
+		}
+		for(int i=0;i<arr.length;i++) {
+			for(int j=0;j<arr[i].length;j++) {
+				System.out.print(arr[i][j]+ "\t");
+			}
+			System.out.println();
+		}*/
+		
+		
+		
+		/*int[][] arr = new int[4][4];
+		for(int i=0;i<arr.length;i++) {
+			for(int j=0;j<arr[i].length;j++) {
+				if(i!=3&&j!=3) {
+					arr[i][j]=new Random().nextInt(10)+1;
+					arr[i][arr.length-1]+=arr[i][j];
+					이걸 하는 순간 정상적이었다가
+					0열 값이랑 2열 2행까지 더한 값이 0열 마지막에
+					0열이랑 2열 모두 더한 값이 2열 마지막에 들어옴
+					
+					else if(j==1) {
+						sum+=arr[i][j];
+						arr[3][1]=sum;
+					}else if(j==2) {
+						sum+=arr[i][j];
+						arr[3][2]=sum;
+					}
+				}
+			}if(i!=3) {
+				for(int j=0;j<arr.length-1;j++) {
+					arr[3][j]+=arr[i][j];
+				}				
+			}		
+		}
+		for(int i=0;i<arr.length;i++) {
+			arr[3][3]+=arr[i][3];
+		}//arr[3][3]=arr[0][3]+arr[1][3]+arr[2][3]+arr[3][0]+arr[3][1]+arr[3][2]; 이게 아닌데 값이 왜 나왔지???
+		for(int i=0;i<arr.length;i++) {
+			for(int j=0;j<arr[i].length;j++) {
+				System.out.print(arr[i][j]+ "\t");
+			}
+			System.out.println();
+		}*/
+		
+		
+		
+		// 2차원 배열
+        int[][] arrSum = new int[4][4];
+	    // 마지막 행 결과값 집계하는 1차원 배열
+        int[] arrRowSum = new int[4];
+        // 각 행의 합
+        int sumVal = 0;
+        // 행 반복
+        for(int i = 0; i < arrSum.length/*=4*/; i++) {//i = 0,1,2,3
+	        //행마다 각행의 합계 초기화
+        	//초기화 안하면 중복이 됨
+            sumVal = 0;
+            // 열 반복
+            for (int j = 0; j < arrSum[i].length/*2차원배열의 i행 길이*/; j++) {//j=0,1,2,3
+                // 마지막 행을 제외한 행
+                if(i < arrSum.length - 1/*=3*/) {		//i = 0,1,2
+                    // 마지막 열
+                    if(j == arrSum[i].length - 1/*=3*/) {//j = 3
+                       // 열의 합계 데이터 삽입
+                        arrSum[i][arrSum[i].length - 1] = sumVal;
+                        // 마지막행에 표시될 열의 합계데이터 집계
+                        arrRowSum[j] += sumVal;
+                    } 
+                    // 마지막 열을 제외한 나머지 열
+                    else {								//j=0,1,2
+                        // 랜덤값 할당
+                        int ranVal = new Random().nextInt(10) + 1;
+                        // 랜덤값 삽입
+                        arrSum[i][j] = ranVal;
+                        // 랜덤값 합계 저장
+                        sumVal += ranVal;
+                        // 마지막행에 표시될 열의 합계데이터 집계
+                        arrRowSum[j] += ranVal;
+                    }
+                } 
+                // 마지막 행
+                else {//i >= arrSum.length - 1
+                    // arrRowSum에 저장한 합계값 마지막 Row에 집계
+                    arrSum[i][j] = arrRowSum[j];
+                    if(j==3) {
+                    	arrSum[i][j]+=arrRowSum[j];
+                    }
+                }
+            }
+        }
+        // 배열 출력
+        for(int k = 0; k < arrSum.length; k++) {
+            for (int l = 0; l < arrSum[k].length; l++) {
+                System.out.print(arrSum[k][l] + " \t");
+            }
+            System.out.println();
+        }
+        
+		
+		
+		/*int[][] data = new int[4][4];
+		int cnt = 1;
+		// 여기를 구현하시오.
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				data[i][j] = cnt++;
+				System.out.printf("%4d",data[i][j]);
+			}
+			System.out.println();
+		}
+		System.out.println();
+		//////////////////
+		//연산
+		for(int i=0; i<data.length-1;i++){
+			for(int j=0; j<data[i].length-1; j++){
+				data[i][3]+=data[i][j];
+				data[3][j]+=data[i][j];
+			}
+			data[3][3]+=data[i][3];
+		}
+		///////////////////////////////
+		//출력
+		for(int i=0; i<data.length;i++){
+			for(int j=0; j<data[i].length;j++){
+				System.out.printf("%4d",data[i][j]);
+			}
+			System.out.println();
+		}*/
+    }
+    }
